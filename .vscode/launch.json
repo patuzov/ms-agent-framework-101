@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MakerSpace",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/MakerSpace/MakerSpace.csproj",
+            "cwd": "${workspaceFolder}/MakerSpace",
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
+    ]
+}
