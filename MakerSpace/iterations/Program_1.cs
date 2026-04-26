@@ -54,7 +54,15 @@
 // string userProfile = Console.ReadLine() ?? "";
 
 // // Generate comprehensive career analysis
-// var analysisPrompt = CreateAnalysisPrompt(userProfile);
+// var analysisPrompt = $@"
+// Analyze this profile and provide feedback. Give concise feedback for each skill/strength mentioned.
+// ---
+// {userProfile}
+// ---
+
+// In the end, if there is room for improvement, mention the need for constant learning and ask the user if they want a 6-month skilling plan emailed to them to future-proof their career.
+// ";
+
 // var analysis = await careerCoach.RunAsync(analysisPrompt);
 
 // Console.WriteLine();
@@ -89,18 +97,3 @@
 // }
 
 // Console.WriteLine("Thank you for using Microsoft Consultant Career Coach!");
-
-// // Helper method to create analysis prompt
-// static string CreateAnalysisPrompt(string userProfile)
-// {
-//     return $@"
-// Analyze this profile and provide feedback. Give concise feedback for each skill/strength mentioned.
-// ---
-// {userProfile}
-// ---
-
-// In the end, if there is room for improvement, mention the need for constant learning and ask the user if the want a 6-months skilling plan to future-proof their career.
-// ";
-// }
-
-

@@ -53,8 +53,16 @@ Console.Write("You: ");
 string userProfile = Console.ReadLine() ?? "";
 
 // Generate comprehensive career analysis
-var analysisPrompt = CreateAnalysisPrompt(userProfile);
+var analysisPrompt = $@"
+Analyze this profile and provide feedback. Give concise feedback for each skill/strength mentioned.
+---
+{userProfile}
+---
+Don't ask any follow up questions
+";
+
 var analysis = await careerCoach.RunAsync(analysisPrompt);
+
 
 Console.WriteLine();
 Console.WriteLine(new string('=', 80));
@@ -64,14 +72,3 @@ Console.WriteLine(analysis);
 
 Console.WriteLine();
 Console.WriteLine("Thank you for using Microsoft Consultant Career Coach!");
-
-static string CreateAnalysisPrompt(string userProfile)
-{
-    return $@"
-    Analyze this profile and provide feedback. Give concise feedback for each skill/strength mentioned.
-    ---
-    {userProfile}
-    ---
-    Don't ask any follow up questions
-    ";
-}

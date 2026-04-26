@@ -1,6 +1,7 @@
 ﻿// using Azure.AI.OpenAI;
 // using Azure.Identity;
 // using Microsoft.Agents.AI;
+// using Microsoft.Extensions.AI;
 // using OpenAI.Chat;
 // using DotNetEnv;
 
@@ -23,22 +24,28 @@
 // Analyze consultant's skills and tell with brutal honesty:
 // * what skills, habits, or systems will be worthless or obsolete in the next five years? 
 // * What must the person start learning or building right now, so they won't regret it in 5 years?
+
 // Please, no flattery.
 // ";
 
 // #endregion
 
-// // Create the Microsoft Consultant Career Coach Agent
-// var careerCoachInstructions = basicInstructions;
+// // Create the Microsoft Consultant Career Coach Agent - will add tools separately
+// var careerCoachInstructions = criticalInstructions;
 
 // AIAgent careerCoach = new AzureOpenAIClient(new Uri(endpoint), new AzureCliCredential())
 //     .GetChatClient(deploymentName)
 //     .AsAIAgent(
 //         instructions: careerCoachInstructions,
-//         name: "Microsoft Consultant Career Coach");
+//         name: "Microsoft Consultant AI Career Coach",
+//         tools: [AIFunctionFactory.Create(EmailTools.EmailSkillingPlan)]);
 
 // Console.WriteLine("Welcome to your Consultant AI Career Coach!");
 // Console.WriteLine("Let's future-proof your Microsoft consulting career!");
+// Console.WriteLine();
+// Console.WriteLine("💡 Pro tip: Ask me to email you a personalized skilling plan after we analyze your profile!");
+// Console.WriteLine();
+// Console.WriteLine("> Note: Type your message or 'exit' to quit");
 // Console.WriteLine();
 
 // // Collect consultant profile
@@ -47,7 +54,6 @@
 // Console.WriteLine("- What are your main skills or strengths right now?");
 // Console.WriteLine("- What's your typical workday like?");
 // Console.WriteLine();
-
 
 // Console.Write("You: ");
 // string userProfile = Console.ReadLine() ?? "";
@@ -58,11 +64,11 @@
 // ---
 // {userProfile}
 // ---
-// Don't ask any follow up questions
+
+// In the end, if there is room for improvement, mention the need for constant learning and ask the user if they want a 6-month skilling plan to future-proof their career.
 // ";
 
 // var analysis = await careerCoach.RunAsync(analysisPrompt);
-
 
 // Console.WriteLine();
 // Console.WriteLine(new string('=', 80));
@@ -71,4 +77,28 @@
 // Console.WriteLine(analysis);
 
 // Console.WriteLine();
+
+// // Create Agent Session to keep context across multiple interactions
+// var session = await careerCoach.CreateSessionAsync();
+
+// // Add initial context to the session
+// await careerCoach.RunAsync($"User Profile: {userProfile}", session);
+// await careerCoach.RunAsync($"Keep this analysis in mind for our conversation: {analysis}", session);
+
+// while (true)
+// {
+//     Console.Write("You: ");
+//     var userMessage = Console.ReadLine();
+    
+//     if (string.IsNullOrEmpty(userMessage) || userMessage.ToLower() == "exit")
+//         break;
+    
+//     // Use the session - the agent handles all conversation context automatically!
+//     var response = await careerCoach.RunAsync(userMessage, session);
+    
+//     Console.WriteLine();
+//     Console.WriteLine($"Coach: {response}");
+//     Console.WriteLine();
+// }
+
 // Console.WriteLine("Thank you for using Microsoft Consultant Career Coach!");
