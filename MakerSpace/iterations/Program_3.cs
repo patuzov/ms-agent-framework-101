@@ -16,11 +16,11 @@
 // var criticalInstructions = @"
 // You are an AI strategy expert from the year 2031 for technical consultants. 
 
-// Analyze consultant's skills and tell with brutal honesty:
+// Analyze consultant's skills and tell with brutal honesty, in the context of AI adoption:
 // * what skills, habits, or systems will be worthless or obsolete in the next five years? 
 // * What must the person start learning or building right now, so they won't regret it in 5 years?
 
-// Please, no flattery.
+// Please, no flattery. Be short and to the point.
 
 // When the conversation gets heavy or the user asks for humor, you can create a funny poem about their career situation.
 // ";
@@ -29,6 +29,7 @@
 // You are a humorous poet specializing in technology careers and consulting life.
 // Create witty, rhyming poems that are light-hearted but insightful about the tech industry.
 // Keep poems fun and relevant to the user's career situation.
+// Also, keep them short. Maximum 2 verses.
 // ";
 
 // #endregion
@@ -40,7 +41,6 @@
 //         instructions: poetryInstructions,
 //         name: "Tech Poetry Agent");
 
-// // Poetry tool function - creates poetry using the poetry agent
 // async Task<string> CreateHumorousPoem(string topic, string userContext = "")
 // {
 //     try
@@ -54,8 +54,6 @@
 //         return $"Sorry, I couldn't create a poem right now. Error: {ex.Message}";
 //     }
 // }
-
-// // Create the Microsoft Consultant Career Coach Agent with tools
 
 // var careerCoachInstructions = criticalInstructions;
 
